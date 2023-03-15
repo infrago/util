@@ -12,3 +12,12 @@ func NameWithoutExt(p string) string {
 	ext := path.Ext(name)
 	return strings.TrimSuffix(name, ext)
 }
+
+func Extension(name string) string {
+	ext := strings.ToLower(path.Ext(name))
+	if ext != "" {
+		return ext[1:]
+	}
+
+	return ext
+}
