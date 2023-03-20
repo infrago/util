@@ -2,8 +2,12 @@ package util
 
 import (
 	"bytes"
+	"encoding/json"
+	"fmt"
 	"strconv"
 	"strings"
+
+	. "github.com/infrago/base"
 )
 
 func MergeString(args ...string) string {
@@ -69,4 +73,43 @@ func Split(s string) []string {
 	}
 
 	return arr
+}
+
+func AnyToString(val Any) string {
+	sv := ""
+	switch v := val.(type) {
+	case string:
+		sv = v
+	case int:
+		sv = strconv.Itoa(v)
+	case int64:
+		sv = strconv.FormatInt(v, 10)
+	case bool:
+		sv = strconv.FormatBool(v)
+	case Map:
+		d, e := json.Marshal(v)
+		if e == nil {
+			sv = string(d)
+		} else {
+			sv = "{}"
+		}
+	case []Map:
+		d, e := json.Marshal(v)
+		if e == nil {
+			sv = string(d)
+		} else {
+			sv = "[]"
+		}
+	case []int, []int8, []int16, []int32, []int64, []float32, []float64, []string, []bool, []Any:
+		d, e := json.Marshal(v)
+		if e == nil {
+			sv = string(d)
+		} else {
+			sv = "[]"
+		}
+	default:
+		sv = fmt.Sprintf("%v", v)
+	}
+
+	return sv
 }
