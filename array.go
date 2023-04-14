@@ -1,5 +1,7 @@
 package util
 
+//what?
+
 func InStrings(s string, ins []string) bool {
 	for _, v := range ins {
 		if s == v {

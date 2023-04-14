@@ -34,6 +34,9 @@ func ParseDurationConfig(config Map, field string) time.Duration {
 	if expiry, ok := config[field].(int64); ok {
 		return time.Second * time.Duration(expiry)
 	}
+	if expiry, ok := config[field].(float64); ok {
+		return time.Second * time.Duration(expiry)
+	}
 
 	return NoDuration
 }
@@ -153,6 +156,7 @@ var sizeMap = map[string]int64{
 	"G": int64(1024 * 1024 * 1024),
 	"T": int64(1024 * 1024 * 1024 * 1024),
 	"P": int64(1024 * 1024 * 1024 * 1024 * 1024),
+	"E": int64(1024 * 1024 * 1024 * 1024 * 1024 * 1024),
 }
 
 func ParseSize(s string) int64 {
