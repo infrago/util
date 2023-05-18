@@ -22,20 +22,20 @@ const (
 )
 
 func ParseDurationConfig(config Map, field string) time.Duration {
-	if expiry, ok := config[field].(string); ok {
-		dur, err := ParseDuration(expiry)
+	if expire, ok := config[field].(string); ok {
+		dur, err := ParseDuration(expire)
 		if err == nil {
 			return dur
 		}
 	}
-	if expiry, ok := config[field].(int); ok {
-		return time.Second * time.Duration(expiry)
+	if expire, ok := config[field].(int); ok {
+		return time.Second * time.Duration(expire)
 	}
-	if expiry, ok := config[field].(int64); ok {
-		return time.Second * time.Duration(expiry)
+	if expire, ok := config[field].(int64); ok {
+		return time.Second * time.Duration(expire)
 	}
-	if expiry, ok := config[field].(float64); ok {
-		return time.Second * time.Duration(expiry)
+	if expire, ok := config[field].(float64); ok {
+		return time.Second * time.Duration(expire)
 	}
 
 	return NoDuration
